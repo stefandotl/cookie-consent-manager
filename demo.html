@@ -1,4 +1,5 @@
-i<!DOCTYPE html>
+i
+<!DOCTYPE html>
 <html lang="de">
 
 <head>
@@ -22,10 +23,11 @@ i<!DOCTYPE html>
     <script src="dist/cookie-consent.js"></script>
     <script>
         new CookieConsentManager({
-            googleAnalyticsId: 'G-TEST12345',  // Optional
-            facebookPixelId: null,             // Optional
+            googleAnalyticsId: 'G-TEST12345',
+            facebookPixelId: '1234567890',     // Test ID enabled
             privacyPolicyUrl: '/datenschutz.html',
-            imprintUrl: '/impressum.html'
+            imprintUrl: '/impressum.html',
+            debug: true                        // Debug mode enabled
         });
     </script>
     <!-- HIER endet die Integration -->

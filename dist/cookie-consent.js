@@ -39,10 +39,21 @@
                 facebookPixelId: null,
                 privacyPolicyUrl: '/privacy-policy',
                 imprintUrl: '/imprint',
-                language: 'en'
+                language: 'en',
+                debug: false
             }, config);
 
             this.init();
+        }
+
+        log(message) {
+            if (this.config.debug) {
+                console.log('Cookie Consent:', message);
+            }
+        }
+
+        reloadPage() {
+            location.reload();
         }
 
         init() {
@@ -91,7 +102,7 @@
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
                 gtag('config', this.config.googleAnalyticsId);
-                console.log('Cookie Consent: Google Analytics loaded.');
+                this.log('Google Analytics loaded.');
             }
 
             // Facebook Pixel
@@ -109,7 +120,7 @@
                     'https://connect.facebook.net/en_US/fbevents.js');
                 fbq('init', this.config.facebookPixelId);
                 fbq('track', 'PageView');
-                console.log('Cookie Consent: Facebook Pixel loaded.');
+                this.log('Facebook Pixel loaded.');
             }
         }
 
@@ -321,12 +332,14 @@
                 localStorage.setItem('cookieConsent', 'all');
                 document.getElementById('cc-overlay').style.setProperty('display', 'none', 'important');
                 this.loadTrackingScripts();
+                this.reloadPage();
             });
 
             // Reject All
             document.getElementById('btn-reject-all').addEventListener('click', () => {
                 localStorage.setItem('cookieConsent', 'essential');
                 document.getElementById('cc-overlay').style.setProperty('display', 'none', 'important');
+                this.reloadPage();
             });
 
             // Save Settings

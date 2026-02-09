@@ -40,7 +40,7 @@ const scriptContent = fs.readFileSync(path.resolve(__dirname, '../dist/cookie-co
 
 describe('CookieConsentManager', () => {
     beforeAll(() => {
-        // Execute the script to put CookieConsentManager on window
+        // Execute the script
         eval(scriptContent);
     });
 
@@ -94,21 +94,21 @@ describe('CookieConsentManager', () => {
     });
 
     test('should save consent to localStorage when "Accept All" is clicked', () => {
-        const ccm = new window.CookieConsentManager({});
+        const reloadSpy = jest.spyOn(window.CookieConsentManager.prototype, 'reloadPage').mockImplementation(() => { });
+        new window.CookieConsentManager({});
         const acceptBtn = document.getElementById('btn-accept-all');
-
-        // Mock loadTrackingScripts to verify it's called
-        // We can't easily spy on the instance method because it's called inside the event listener defined in constructor/init
-        // But we can check the side effects (scripts injected)
 
         acceptBtn.click();
 
         expect(window.localStorage.getItem('cookieConsent')).toBe('all');
         const overlay = document.getElementById('cc-overlay');
         expect(overlay.style.display).toBe('none');
+        expect(reloadSpy).toHaveBeenCalled();
+        reloadSpy.mockRestore();
     });
 
     test('should save consent to localStorage when "Reject All" is clicked', () => {
+        const reloadSpy = jest.spyOn(window.CookieConsentManager.prototype, 'reloadPage').mockImplementation(() => { });
         new window.CookieConsentManager({});
         const rejectBtn = document.getElementById('btn-reject-all');
 
@@ -117,6 +117,8 @@ describe('CookieConsentManager', () => {
         expect(window.localStorage.getItem('cookieConsent')).toBe('essential');
         const overlay = document.getElementById('cc-overlay');
         expect(overlay.style.display).toBe('none');
+        expect(reloadSpy).toHaveBeenCalled();
+        reloadSpy.mockRestore();
     });
 
     test('should load tracking scripts when consent is given', () => {
@@ -145,5 +147,19 @@ describe('CookieConsentManager', () => {
         // FB Pixel code injects a script tag slightly differently, let's check if the window properties exist?
         // The script defines 'fbq'.
         // expect(window.fbq).toBeDefined(); // This might be tricky in JSDOM due to how eval/scripts work
+    });
+
+    test('should log messages if debug mode is enabled', () => {
+        const consoleSpy = jest.spyOn(console, 'log');
+
+        new window.CookieConsentManager({
+            debug: true,
+            googleAnalyticsId: 'G-DEBUG-TEST'
+        });
+
+        const acceptBtn = document.getElementById('btn-accept-all');
+        acceptBtn.click();
+
+        expect(consoleSpy).toHaveBeenCalledWith('Cookie Consent:', 'Google Analytics loaded.');
     });
 });
