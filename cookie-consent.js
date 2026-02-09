@@ -1,11 +1,10 @@
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     // ==========================================
     // 1. KONFIGURATION
     // ==========================================
     var googleAnalyticsID = 'G-XXXXXXXXXX';
-    var facebookPixelID   = '1234567890';
+    var facebookPixelID = '1234567890';
 
     var linkImpressum = '/impressum';
     var linkDatenschutz = '/datenschutz';
@@ -15,32 +14,32 @@
     // ==========================================
     function loadTrackingScripts() {
         // Google Analytics
-        if(googleAnalyticsID) {
+        if (googleAnalyticsID) {
             var gaScript = document.createElement('script');
-    gaScript.async = true;
-    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + googleAnalyticsID;
-    document.head.appendChild(gaScript);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', googleAnalyticsID);
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + googleAnalyticsID;
+            document.head.appendChild(gaScript);
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', googleAnalyticsID);
         }
 
-    // Facebook Pixel
-    if(facebookPixelID) {
-        !function (f, b, e, v, n, t, s) {
-            if (f.fbq) return; n = f.fbq = function () {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-            n.queue = []; t = b.createElement(e); t.async = !0;
-            t.src = v; s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', facebookPixelID);
-    fbq('track', 'PageView');
+        // Facebook Pixel
+        if (facebookPixelID) {
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', facebookPixelID);
+            fbq('track', 'PageView');
         }
     }
 
@@ -241,132 +240,132 @@
     var viewSettings = document.getElementById('view-settings');
 
     // Add click event to floating button (must be after overlay creation)
-    floatingButton.addEventListener('click', function() {
+    floatingButton.addEventListener('click', function () {
         // Show the overlay (remove display: none)
         overlay.style.removeProperty('display');
 
-    // Set to banner view by default
-    viewBanner.classList.remove('cc-hidden');
-    viewSettings.classList.add('cc-hidden');
+        // Set to banner view by default
+        viewBanner.classList.remove('cc-hidden');
+        viewSettings.classList.add('cc-hidden');
 
-    // Update checkbox states based on current consent
-    var consent = localStorage.getItem('cookieConsent');
-    var marketingCheckbox = document.getElementById('chk-marketing-settings');
-    var otherCheckbox = document.getElementById('chk-other-settings');
-    var functionalCheckbox = document.getElementById('chk-functional-settings');
+        // Update checkbox states based on current consent
+        var consent = localStorage.getItem('cookieConsent');
+        var marketingCheckbox = document.getElementById('chk-marketing-settings');
+        var otherCheckbox = document.getElementById('chk-other-settings');
+        var functionalCheckbox = document.getElementById('chk-functional-settings');
 
-    if (consent === 'all') {
-        marketingCheckbox.checked = true;
-    otherCheckbox.checked = true;
-    functionalCheckbox.checked = true;
+        if (consent === 'all') {
+            marketingCheckbox.checked = true;
+            otherCheckbox.checked = true;
+            functionalCheckbox.checked = true;
         } else if (consent === 'marketing') {
-        marketingCheckbox.checked = true;
-    otherCheckbox.checked = false;
-    functionalCheckbox.checked = false;
+            marketingCheckbox.checked = true;
+            otherCheckbox.checked = false;
+            functionalCheckbox.checked = false;
         } else if (consent === 'essential_other_functional') {
-        marketingCheckbox.checked = false;
-    otherCheckbox.checked = true;
-    functionalCheckbox.checked = true;
+            marketingCheckbox.checked = false;
+            otherCheckbox.checked = true;
+            functionalCheckbox.checked = true;
         } else if (consent === 'essential_other') {
-        marketingCheckbox.checked = false;
-    otherCheckbox.checked = true;
-    functionalCheckbox.checked = false;
+            marketingCheckbox.checked = false;
+            otherCheckbox.checked = true;
+            functionalCheckbox.checked = false;
         } else if (consent === 'essential_functional') {
-        marketingCheckbox.checked = false;
-    otherCheckbox.checked = false;
-    functionalCheckbox.checked = true;
+            marketingCheckbox.checked = false;
+            otherCheckbox.checked = false;
+            functionalCheckbox.checked = true;
         } else {
-        marketingCheckbox.checked = false;
-    otherCheckbox.checked = false;
-    functionalCheckbox.checked = false;
+            marketingCheckbox.checked = false;
+            otherCheckbox.checked = false;
+            functionalCheckbox.checked = false;
         }
 
-    // Scroll to top of overlay
-    overlay.scrollTop = 0;
+        // Scroll to top of overlay
+        overlay.scrollTop = 0;
     });
 
     // Details Toggle Funktion
-    window.toggleDetails = function(detailsId) {
+    window.toggleDetails = function (detailsId) {
         var details = document.getElementById(detailsId);
-    var button = event.target;
+        var button = event.target;
 
-    if (details.classList.contains('cc-hidden')) {
-        details.classList.remove('cc-hidden');
-    button.textContent = 'Details verbergen';
+        if (details.classList.contains('cc-hidden')) {
+            details.classList.remove('cc-hidden');
+            button.textContent = 'Details verbergen';
         } else {
-        details.classList.add('cc-hidden');
-    button.textContent = 'Details anzeigen';
+            details.classList.add('cc-hidden');
+            button.textContent = 'Details anzeigen';
         }
     };
 
     // Navigation
-    document.getElementById('btn-open-settings').addEventListener('click', function() {
+    document.getElementById('btn-open-settings').addEventListener('click', function () {
         // Checkbox-Zustände basierend auf gespeichertem Consent setzen
         var consent = localStorage.getItem('cookieConsent');
-    var marketingCheckbox = document.getElementById('chk-marketing-settings');
-    var otherCheckbox = document.getElementById('chk-other-settings');
-    var functionalCheckbox = document.getElementById('chk-functional-settings');
+        var marketingCheckbox = document.getElementById('chk-marketing-settings');
+        var otherCheckbox = document.getElementById('chk-other-settings');
+        var functionalCheckbox = document.getElementById('chk-functional-settings');
 
-    if (consent === 'all') {
-        marketingCheckbox.checked = true;
-    otherCheckbox.checked = true;
-    functionalCheckbox.checked = true;
+        if (consent === 'all') {
+            marketingCheckbox.checked = true;
+            otherCheckbox.checked = true;
+            functionalCheckbox.checked = true;
         } else if (consent === 'marketing') {
-        marketingCheckbox.checked = true;
-    otherCheckbox.checked = false;
-    functionalCheckbox.checked = false;
+            marketingCheckbox.checked = true;
+            otherCheckbox.checked = false;
+            functionalCheckbox.checked = false;
         } else if (consent === 'essential_other_functional') {
-        marketingCheckbox.checked = false;
-    otherCheckbox.checked = true;
-    functionalCheckbox.checked = true;
+            marketingCheckbox.checked = false;
+            otherCheckbox.checked = true;
+            functionalCheckbox.checked = true;
         } else {
-        marketingCheckbox.checked = false;
-    otherCheckbox.checked = false;
-    functionalCheckbox.checked = false;
+            marketingCheckbox.checked = false;
+            otherCheckbox.checked = false;
+            functionalCheckbox.checked = false;
         }
 
-    viewBanner.classList.add('cc-hidden');
-    viewSettings.classList.remove('cc-hidden');
+        viewBanner.classList.add('cc-hidden');
+        viewSettings.classList.remove('cc-hidden');
     });
 
-    document.getElementById('btn-back').addEventListener('click', function() {
+    document.getElementById('btn-back').addEventListener('click', function () {
         viewSettings.classList.add('cc-hidden');
-    viewBanner.classList.remove('cc-hidden');
+        viewBanner.classList.remove('cc-hidden');
     });
 
     // Aktionen
-    document.getElementById('btn-accept-all').addEventListener('click', function() {
+    document.getElementById('btn-accept-all').addEventListener('click', function () {
         localStorage.setItem('cookieConsent', 'all');
-    overlay.style.setProperty('display', 'none', 'important');
-    loadTrackingScripts();
+        overlay.style.setProperty('display', 'none', 'important');
+        loadTrackingScripts();
     });
 
-    document.getElementById('btn-reject-all').addEventListener('click', function() {
+    document.getElementById('btn-reject-all').addEventListener('click', function () {
         localStorage.setItem('cookieConsent', 'essential');
-    overlay.style.setProperty('display', 'none', 'important');
+        overlay.style.setProperty('display', 'none', 'important');
     });
 
-    document.getElementById('btn-save-settings').addEventListener('click', function() {
-    var marketingIsChecked = document.getElementById('chk-marketing-settings').checked;
-    var otherIsChecked = document.getElementById('chk-other-settings').checked;
-    var functionalIsChecked = document.getElementById('chk-functional-settings').checked;
+    document.getElementById('btn-save-settings').addEventListener('click', function () {
+        var marketingIsChecked = document.getElementById('chk-marketing-settings').checked;
+        var otherIsChecked = document.getElementById('chk-other-settings').checked;
+        var functionalIsChecked = document.getElementById('chk-functional-settings').checked;
 
-    if (marketingIsChecked && otherIsChecked && functionalIsChecked) {
-        localStorage.setItem('cookieConsent', 'all');
-    loadTrackingScripts();
+        if (marketingIsChecked && otherIsChecked && functionalIsChecked) {
+            localStorage.setItem('cookieConsent', 'all');
+            loadTrackingScripts();
         } else if (marketingIsChecked) {
-        localStorage.setItem('cookieConsent', 'marketing');
-    loadTrackingScripts();
+            localStorage.setItem('cookieConsent', 'marketing');
+            loadTrackingScripts();
         } else if (otherIsChecked && functionalIsChecked) {
-        localStorage.setItem('cookieConsent', 'essential_other_functional');
+            localStorage.setItem('cookieConsent', 'essential_other_functional');
         } else if (otherIsChecked) {
-        localStorage.setItem('cookieConsent', 'essential_other');
+            localStorage.setItem('cookieConsent', 'essential_other');
         } else if (functionalIsChecked) {
-        localStorage.setItem('cookieConsent', 'essential_functional');
+            localStorage.setItem('cookieConsent', 'essential_functional');
         } else {
-        localStorage.setItem('cookieConsent', 'essential');
+            localStorage.setItem('cookieConsent', 'essential');
         }
-    overlay.style.setProperty('display', 'none', 'important');
+        overlay.style.setProperty('display', 'none', 'important');
     });
 });
-</script>
+
