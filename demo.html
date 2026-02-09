@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Consent Demo</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px; text-align: center; background-color: #f3f4f6;">
+
+    <h1>Meine Webseite</h1>
+    <p>Hier ist ein Beispiel für den integrierten Cookie-Banner.</p>
+    <button onclick="localStorage.removeItem('cookieConsent'); location.reload();">
+        Reset Consent (Test)
+    </button>
+    <br><br>
+    <p>Scrollen zum Testen des Floating Buttons...</p>
+    <div style="height: 1000px; background: linear-gradient(#eee, #ccc);"></div>
+
+    <!-- HIER beginnt die Integration -->
+    <script src="dist/cookie-consent-library.js"></script>
+    <script>
+        new CookieConsentManager({
+            googleAnalyticsId: 'G-TEST12345',  // Optional
+            facebookPixelId: null,             // Optional
+            privacyPolicyUrl: '/datenschutz.html',
+            imprintUrl: '/impressum.html'
+        });
+    </script>
+    <!-- HIER endet die Integration -->
+
+</body>
+</html>
